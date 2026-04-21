@@ -46,11 +46,11 @@ export class Room extends DurableObject {
 export default {
 	async fetch(req, env){
 		var url = new URL(req.url);
-		var room = url.pathname.slice(4) || 'demo';
 
 		if (url.pathname.slice(0, 4) !== '/ws/')
 			return new Response('ok');
 
+		var room = decodeURIComponent(url.pathname.slice(4) || 'demo');
 		var id = env.ROOM.idFromName(room);
 		var stub = env.ROOM.get(id);
 
